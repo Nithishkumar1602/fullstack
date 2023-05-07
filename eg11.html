@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Strength Checker</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <style>
+    .password-strength {
+      width: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="password-strength">
+    <input type="password" id="password" placeholder="Enter your password">
+
+    <div id="password-strength-meter"></div>
+    <div id="password-strength-text"></div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $('#password').keyup(function() {
+        var password = $(this).val();
+
+        // Calculate the password strength
+        var strength = calculatePasswordStrength(password);
+
+        // Update the password strength meter and text
+        $('#password-strength-meter').removeClass().addClass('strength-' + strength);
+        $('#password-strength-text').text('Strength: ' + getStrengthLabel(strength));
+      });
+
+      function calculatePasswordStrength(password) {
+        var strength = 0;
+
+        // Length check
+        if (password.length >= 8) {
+          strength += 1;
+        }
+
+        // Character complexity check
+        if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
+          strength += 1;
+        }
+        if (password.match(/\d+/)) {
+          strength += 1;
+        }
+        if (password.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) {
+          strength += 1;
+        }
+
+        return strength;
+      }
+
+      function getStrengthLabel(strength) {
+        if (strength === 0) {
+          return 'Weak';
+        } else if (strength === 1) {
+          return 'Moderate';
+        } else if (strength === 2) {
+          return 'Strong';
+        } else {
+          return 'Very Strong';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

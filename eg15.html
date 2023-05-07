@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="calculatorApp">
+<head>
+  <title>Scientific Calculator</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    .calculator {
+      width: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="CalculatorController" class="calculator">
+    <input type="text" ng-model="result" readonly>
+
+    <table>
+      <tr>
+        <td><button ng-click="buttonClicked('7')">7</button></td>
+        <td><button ng-click="buttonClicked('8')">8</button></td>
+        <td><button ng-click="buttonClicked('9')">9</button></td>
+        <td><button ng-click="buttonClicked('/')">/</button></td>
+      </tr>
+      <tr>
+        <td><button ng-click="buttonClicked('4')">4</button></td>
+        <td><button ng-click="buttonClicked('5')">5</button></td>
+        <td><button ng-click="buttonClicked('6')">6</button></td>
+        <td><button ng-click="buttonClicked('*')">*</button></td>
+      </tr>
+      <tr>
+        <td><button ng-click="buttonClicked('1')">1</button></td>
+        <td><button ng-click="buttonClicked('2')">2</button></td>
+        <td><button ng-click="buttonClicked('3')">3</button></td>
+        <td><button ng-click="buttonClicked('-')">-</button></td>
+      </tr>
+      <tr>
+        <td><button ng-click="buttonClicked('0')">0</button></td>
+        <td><button ng-click="buttonClicked('.')">.</button></td>
+        <td><button ng-click="calculate()">=</button></td>
+        <td><button ng-click="buttonClicked('+')">+</button></td>
+      </tr>
+      <tr>
+        <td colspan="4"><button ng-click="clear()">Clear</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    var app = angular.module('calculatorApp', []);
+
+    app.controller('CalculatorController', function($scope) {
+      $scope.result = '';
+
+      $scope.buttonClicked = function(value) {
+        $scope.result += value;
+      };
+
+      $scope.calculate = function() {
+        try {
+          $scope.result = eval($scope.result);
+        } catch (e) {
+          $scope.result = 'Error';
+        }
+      };
+
+      $scope.clear = function() {
+        $scope.result = '';
+      };
+    });
+  </script>
+</body>
+</html>

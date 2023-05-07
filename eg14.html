@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stopwatch</title>
+  <style>
+    .stopwatch-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="stopwatch-container">
+    <h1>Stopwatch</h1>
+    <p id="display">00:00:00</p>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button>
+  </div>
+
+  <script>
+    var startTime;
+    var elapsedTime = 0;
+    var timerInterval;
+
+    function start() {
+      if (!timerInterval) {
+        startTime = Date.now() - elapsedTime;
+        timerInterval = setInterval(updateTime, 10);
+      }
+    }
+
+    function stop() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function reset() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      elapsedTime = 0;
+      updateDisplay();
+    }
+
+    function updateTime() {
+      var currentTime = Date.now();
+      elapsedTime = currentTime - startTime;
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      var milliseconds = Math.floor((elapsedTime % 1000) / 10);
+      var seconds = Math.floor((elapsedTime / 1000) % 60);
+      var minutes = Math.floor((elapsedTime / 60000) % 60);
+      var hours = Math.floor(elapsedTime / 3600000);
+
+      var display = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}.${formatTime(milliseconds)}`;
+      document.getElementById('display').innerHTML = display;
+    }
+
+    function formatTime(time) {
+      return time < 10 ? `0${time}` : time;
+    }
+  </script>
+</body>
+</html>

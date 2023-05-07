@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Quote Generator</title>
+  <style>
+    .quote-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quote-container">
+    <h1>Random Quote Generator</h1>
+    <p id="quote"></p>
+    <button onclick="generateQuote()">Generate Quote</button>
+  </div>
+
+  <script>
+    var quotes = [
+      "The only way to do great work is to love what you do. - Steve Jobs",
+      "Believe you can and you're halfway there. - Theodore Roosevelt",
+      "Don't watch the clock; do what it does. Keep going. - Sam Levenson",
+      "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+      "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
+      "The best way to predict the future is to create it. - Peter Drucker",
+      "In the middle of every difficulty lies opportunity. - Albert Einstein"
+    ];
+
+    function generateQuote() {
+      var randomIndex = Math.floor(Math.random() * quotes.length);
+      var quoteElement = document.getElementById('quote');
+      quoteElement.innerHTML = quotes[randomIndex];
+    }
+
+    // Generate initial quote on page load
+    window.onload = generateQuote;
+  </script>
+</body>
+</html>

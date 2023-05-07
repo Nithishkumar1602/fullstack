@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="shoppingCartApp">
+<head>
+  <title>Shopping Cart App</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    .cart {
+      margin-bottom: 20px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="ShoppingCartController">
+    <h1>Shopping Cart</h1>
+
+    <div class="cart">
+      <h3>Cart</h3>
+      <div class="cart-item" ng-repeat="item in cart">
+        <span>{{ item.name }}</span>
+        <span>{{ item.price | currency }}</span>
+        <button ng-click="removeFromCart(item)">Remove</button>
+      </div>
+      <div ng-if="cart.length === 0">Cart is empty</div>
+    </div>
+
+    <div>
+      <h3>Available Items</h3>
+      <div ng-repeat="item in items">
+        <span>{{ item.name }}</span>
+        <span>{{ item.price | currency }}</span>
+        <button ng-click="addToCart(item)">Add to Cart</button>
+      </div>
+    </div>
+
+    <button ng-click="checkout()">Checkout</button>
+  </div>
+
+  <script>
+    var app = angular.module('shoppingCartApp', []);
+
+    app.controller('ShoppingCartController', function($scope) {
+      $scope.cart = [];
+      $scope.items = [
+        { name: 'Item 1', price: 10.99 },
+        { name: 'Item 2', price: 19.99 },
+        { name: 'Item 3', price: 7.99 },
+        { name: 'Item 4', price: 15.99 }
+      ];
+
+      $scope.addToCart = function(item) {
+        $scope.cart.push(item);
+      };
+
+      $scope.removeFromCart = function(item) {
+        var index = $scope.cart.indexOf(item);
+        if (index > -1) {
+          $scope.cart.splice(index, 1);
+        }
+      };
+
+      $scope.checkout = function() {
+        // Perform the checkout logic here
+        // You can send the cart data to a server, clear the cart, etc.
+        alert('Checkout completed');
+        $scope.cart = [];
+      };
+    });
+  </script>
+</body>
+</html>

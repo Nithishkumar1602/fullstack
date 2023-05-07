@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Blog</title>
+</head>
+<body>
+  <h1>Welcome to My Blog</h1>
+
+  <ul>
+    <% articles.forEach(article => { %>
+      <li>
+        <a href="/article/<%= article.id %>"><%= article.title %></a>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
